@@ -1,0 +1,52 @@
+
+.card-header{
+    color:blue;
+    font-weight: bold;
+    margin: 3em;
+    display:flex;
+    font-family: arial black; 
+}
+
+label{
+    color: #337ab7;
+}
+
+.allignbtn{
+    margin-top: 25px;
+}
+
+.color-all{
+    margin-top: 20px;
+}
+
+.tablecol{
+    color: #337ab7;
+}
+
+.textboxsize{
+    width: 30px;
+    }
+
+    .bottomright {
+        position: absolute;
+        bottom: 50px;
+        right: 250px;
+        font-size: 18px;
+      }
+
+   .setposition{
+    
+    position: absolute;
+    bottom: -165px;
+    right: 350px;
+    font-size: 18px;
+    color:blue;
+   } 
+   
+   .pos{
+    color:red;
+    position: absolute;
+    bottom: -220px;
+    right: -40px;
+    font-size: 18px;  
+   }

@@ -1,0 +1,65 @@
+<div class="container">
+ <div class="card">
+    <div class="card-header">
+        <h3>Order Creation Screen</h3>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+<div class="row form-row col-md-12 padding-1-0">
+    <div class="col-md-2">
+        <label>Series</label>
+        <select class="form-control" formControlname="seriesName" (change)="getSeriesId($event)">
+            <option value="">Select</option>
+            <option [value]="series.seriesId" *ngFor="let series of seriesList">{{series.seriesName}}</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label>Model</label>
+        <select class="form-control" formControlname="modelName" (change)="getModelId($event)">
+            <option value="">Select</option>
+            <option [value]="models.modelId" *ngFor="let models of modelList">{{models.modelName}}</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label>Accessory</label>
+        <ng-multiselect-dropdown [placeholder]="'Select'"  [data]="accossaryList" formControlname="accessoryName" (onSelect)="onSelectAccessoryItem($event)"
+        (onDeSelect)="onDeSelectAccessoryItem($event)" [(ngModel)]="selectedAccyItemRoot" [settings]="accessoryDropdownSettings">
+       </ng-multiselect-dropdown>
+    </div>
+    <div class="col-md-2">
+        <label>Color</label>
+        <ng-multiselect-dropdown [placeholder]="'Select'"   [data]="colorList" formControlname="colorName" (onSelect)="onSelectColornumber($event)"
+        (onDeSelect)="onDeSelectColornumber($event)" [(ngModel)]="selectedColorItemRoot" [settings]="colorDropdownSettings">
+       </ng-multiselect-dropdown>
+    </div>
+   <div class="col-md-4">
+    <div class="col-md-2">
+    <button type="button" class="btn btn-primary md-1 allignbtn" (click)="onSave()">Save</button>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+    <button  type="button" class="btn btn-secondary md-1 allignbtn" (click)="onReset()">Reset</button>
+</div>
+</div>
+</div>
+<hr>
+<div class ="col-md-12">
+    <div class="setposition">
+        <h3>Items Price:</h3>
+    </div>
+    <div class="col-md-4 pos">
+        
+        <h4>Model Price : {{modelAmount | number}}</h4>
+        <h4>Accessory Price : {{accessorySum | number}}</h4>
+        <h4>Color Price :{{colorSum | number }}</h4>    
+    </div>
+</div>
+<div class="bottomright">
+  <h2 class="h2">Grand Total:{{ grandTotal | number }}</h2> 
+</div>
+
+</div>
+
+

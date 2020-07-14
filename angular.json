@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -50,6 +51,7 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 },
+                
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
@@ -119,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "OrderManagementSystem"
+    }
+  },
+  "defaultProject": "OrderManagementSystem",
+  "cli": {
+    "analytics": false
+  }
 }

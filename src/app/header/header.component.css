@@ -1,0 +1,9 @@
+.center {
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    background-color: #00121a;
+  }
+  .h2{
+      color: white;
+  }
