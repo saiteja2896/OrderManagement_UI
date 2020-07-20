@@ -1,18 +1,21 @@
+import { operationsConstants } from './../shared/operationsConstants';
 import { Series } from './../models/orderSearchSeries.model';
 import { map } from 'rxjs/operators';
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs'
 
+
 @Injectable({
     providedIn:'root'
 })
 export class OrderCreationService{
-    public selectedSeriesDetails:Series;
+
     constructor(private http:HttpClient){}
+
+    
     getServiceDetails():Observable<any>{
-        let url="http://localhost:8081/series/alldata";
-        return this.http.get(url).pipe(map(
+        return this.http.get(operationsConstants.seriesUrl).pipe(map(
             (data:any)=>{
                 return data;
             }
@@ -20,8 +23,7 @@ export class OrderCreationService{
     }
 
     getModelDetails(requestData):Observable<any>{
-    let url="http://localhost:8081/model/getmodels";
-    return this.http.post(url,requestData).pipe(map(
+    return this.http.post(operationsConstants.modelUrl,requestData).pipe(map(
         (data:any)=>{
             return data;
         }
@@ -29,8 +31,7 @@ export class OrderCreationService{
     }
 
     getAccessoryDetails(requestData){
-        let url="http://localhost:8082/accessory/getaccessory";
-        return this.http.post(url,requestData).pipe(map(
+        return this.http.post(operationsConstants.accessoryUrl,requestData).pipe(map(
             (data:any)=>{
                 return data;
             }
@@ -38,12 +39,19 @@ export class OrderCreationService{
     }
 
     getColorDetails(requestData):Observable<any>{
-    let url="http://localhost:8083/color/getcolors";
-    return this.http.post(url,requestData).pipe(map(
+    return this.http.post(operationsConstants.colorUrl,requestData).pipe(map(
         (data:any)=>{
             return data;
         }
     ))
+    }
+
+    setRequestData(requestData):Observable<any>{
+        return this.http.post(operationsConstants.saveDataUrl,requestData).pipe(map(
+            (data:any)=>{
+                return data;
+            }
+        ))
     }
 
 }

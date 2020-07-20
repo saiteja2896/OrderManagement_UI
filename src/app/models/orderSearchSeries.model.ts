@@ -29,11 +29,27 @@ export class Color{
     available:number;
 }
 
+export class AccessoryMapper{
+    accessoryId:number;
+    accessoryName:String;
+
+}
+
+export class ColorMapper{
+    colorId :number;
+    colorName:String;
+
+}
 export class SaveData{
+    public orderId:number;
     public series:number;
     public model:number;
-    public accessory:Accessory[]=[];
-    public color:Color[]=[];
+    public accessory:AccessoryMapper[]=[];
+    public color:ColorMapper[]=[];
     public price:number;
+
+    public constructor(init?:Partial<SaveData>){
+        Object.assign(this,init)
+    }
 }
 

@@ -40,7 +40,12 @@ export class OrderCreationComponent implements OnInit {
   public colorPriceArray=[];
   public selectedAccyItemRoot=[];
   public selectedColorItemRoot=[];
-
+  public colorObj=[];
+  public accyObj=[];
+  public accyObjList=[];
+  public colorObjList=[];
+  public setMessage:boolean=false;
+  public errorMessage:boolean=false;
 
   constructor(private http :HttpClient,public orderService:OrderCreationService,public formbuilder: FormBuilder) { }
 
@@ -136,21 +141,36 @@ fetchColorDetails(){
    this.colorList=data;
   });
 }
+  
 
-/*public getRequestParameters(){
-  const selectedSeries =this.searchForm.controls['seriesName'].value;
-  const selectedModelName =this.searchForm.controls['modelName'].value;
-  const selectedAccessoryName =this.searchForm.controls['colorName'].value;
-  const selectedColorsAvailable =this.searchForm.controls['colorsAvailable'].value;
-  let requestParamenters =new SaveData();
-}*/
 
 onSave(){
-
-
+  let requestParamenters =new SaveData();
+  requestParamenters.series=this.selectedSeriesId;
+  requestParamenters.model=this.selectedModelId;
+  requestParamenters.accessory=this.accyObjList;
+  requestParamenters.color=this.colorObjList;
+  requestParamenters.price=this.grandTotal;
+  console.log(requestParamenters);
+this.orderService.setRequestData(requestParamenters).subscribe(data=>{
+if(data){
+  this.setMessage=true;
+  this.onReset();
+}
+else{
+   this.errorMessage=true;
+}
+});
 }
 
-
+closeMessage(){
+  if(this.setMessage){
+  this.setMessage=false;
+  }
+  else{
+    this.errorMessage=false;
+  }
+}
 
 
 
@@ -180,10 +200,13 @@ public onReset(){
 
 
 public onSelectColornumber(event){
+  this.colorObj=event
   console.log('onSelectColorItem',event);
   this.colorArray=Utilities.convertObjectToArray(event);
+  this.setColorDto();
   this.calculateColorCalucualtions();
 } 
+
 
 
 /*public onSelectColornumber(event){
@@ -196,6 +219,7 @@ public onDeSelectColornumber(event){
   console.log('onDeSelectnumber',event);
   this.colorArray=Utilities.convertObjectToArray(event);
   this.isDeselectedColor=true;
+  this.setColorDto();
   this.calculateColorCalucualtions();
 }
 
@@ -203,16 +227,41 @@ public onDeSelectColornumber(event){
 
 public onSelectAccessoryItem(event:any){
   console.log('onSelectAccessortItem',event);
+  this.accyObj =event;
   this.arrayAccessories=Utilities.convertObjectToArray(event);
-  console.log(this.arrayAccessories);
+  this.setAccessoryDto();
   this.calculateAccessoryPrice();
 }
 
 onDeSelectAccessoryItem(event:any){
   console.log('onDeSelectAccessortItem',event);
+  this.accyObj =event;
   this.isDeSelectedAccessory=true;
   this.arrayAccessories=Utilities.convertObjectToArray(event);
+  this.setAccessoryDto();
   this.calculateAccessoryPrice();
+}
+
+setAccessoryDto(){
+  if(this.isDeSelectedAccessory){
+    const index = this.accyObjList.indexOf(this.accyObj); 
+    this.accyObjList.splice(index,1);
+  }
+  else{
+    this.accyObjList.push(this.accyObj);
+  }
+  console.log(this.accyObjList);
+}
+
+setColorDto(){
+  if(this.isDeselectedColor){
+   let index=this.colorObjList.indexOf(this.colorObj);
+   this.colorObjList.splice(index,1);
+  }
+  else{
+    this.colorObjList.push(this.colorObj);
+  }
+  console.log(this.colorObjList);
 }
 
 setArraysToNull(){
@@ -236,6 +285,7 @@ this.searchForm.controls['seriesName'].setValue(this.selectedSeriesName);
 }
 
 calculateAccessoryPrice(){
+  
   this.accessorySum=0;
   for(let i=0;i<this.accossaryList.length ;i++){
     if(this.arrayAccessories[0].accessoryId === this.accossaryList[i].accessoryId){

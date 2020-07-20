@@ -5,7 +5,19 @@
     </div>
 </div>
 <hr>
-
+<!-- Success Alert -->
+<div *ngIf="setMessage">
+<div class="alert alert-success">
+    <button (click)="closeMessage()"type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Success!</strong> Order has been successfully placed.
+  </div>
+</div>
+<div *ngIf="errorMessage">
+<div class="alert alert-danger">
+    <button (click)="closeMessage()"type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Danger!</strong> Error while Placing the Order please try again.
+  </div>
+</div>
 <div class="row">
 <div class="row form-row col-md-12 padding-1-0">
     <div class="col-md-2">
